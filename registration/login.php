@@ -6,10 +6,13 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+  <p class="aligncenter">
+      <img src="login.png" alt="centered image" />
+  </p>
   <div class="header">
   	<h2>Login</h2>
   </div>
-	 
+
   <form method="post" action="login.php">
   	<?php include('errors.php'); ?>
   	<div class="input-group">

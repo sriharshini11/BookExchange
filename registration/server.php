@@ -4,10 +4,10 @@ session_start();
 // initializing variables
 $username = "";
 $email    = "";
-$errors = array(); 
+$errors = array();
 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'registration');
+$db = mysqli_connect('localhost', 'root', 'root', 'Bookfinder');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
@@ -26,12 +26,12 @@ if (isset($_POST['reg_user'])) {
 	array_push($errors, "The two passwords do not match");
   }
 
-  // first check the database to make sure 
+  // first check the database to make sure
   // a user does not already exist with the same username and/or email
   $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
   $result = mysqli_query($db, $user_check_query);
   $user = mysqli_fetch_assoc($result);
-  
+
   if ($user) { // if user exists
     if ($user['username'] === $username) {
       array_push($errors, "Username already exists");
@@ -46,16 +46,16 @@ if (isset($_POST['reg_user'])) {
   if (count($errors) == 0) {
   	$password = md5($password_1);//encrypt the password before saving in the database
 
-  	$query = "INSERT INTO users (username, email, password) 
+  	$query = "INSERT INTO users (username, email, password)
   			  VALUES('$username', '$email', '$password')";
   	mysqli_query($db, $query);
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You are now logged in";
-  	header('location: index.php');
+  	header('location: home.php');
   }
 }
 
-// ... 
+// ...
 
 
 // LOGIN USER
@@ -76,12 +76,59 @@ if (isset($_POST['login_user'])) {
   	$results = mysqli_query($db, $query);
   	if (mysqli_num_rows($results) == 1) {
   	  $_SESSION['username'] = $username;
-  	  $_SESSION['success'] = "You are now logged in";
-  	  header('location: index.php');
+  	  header('location: home.php');
   	}else {
   		array_push($errors, "Wrong username/password combination");
   	}
   }
 }
 
+if (isset($_POST['ISBNsearch']))
+{
+  $ISBNsearch=mysqli_real_escape_string($db, $_POST['ISBNsearch']);
+  if (empty($ISBNsearch)) {
+  	array_push($errors, "ISBN is required");
+  }
+  $query="select * from inventory where ISBN='".$ISBNsearch."' Limit 1";
+  $result=mysqli_query($db, $query);
+  if(mysqli_num_rows($results)==1)
+  {
+    while ($row = $result->fetch_assoc())
+    {
+      print_r($row);
+      exit();
+    }
+  }
+  else
+  {
+    echo " No book found";
+      exit();
+  }
+}
 ?>
+
+$ISBNsearch=mysqli_real_escape_string($db, $_POST['ISBNsearch']);
+if (empty($ISBNsearch))
+{
+  array_push($errors, "ISBN is required");
+}
+else
+{
+    echo "ISBN field";
+}
+$query="select * from inventory where ISBN='".$ISBNsearch."' Limit 1";
+$result=mysqli_query($db, $query);
+if(mysqli_num_rows($results)==1)
+{
+  while ($row = $result->fetch_assoc())
+  {
+    print_r($row);
+    exit();
+  }
+}
+else
+{
+  echo " No book found";
+    exit();
+}
+}

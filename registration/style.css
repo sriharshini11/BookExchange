@@ -2,23 +2,37 @@
   margin: 0px;
   padding: 0px;
 }
-body {
+body
+{
   font-size: 120%;
   background: #F8F8FF;
 }
-
 .header {
   width: 30%;
   margin: 50px auto 0px;
-  color: white;
+  color: purple;
   background: #5F9EA0;
   text-align: center;
   border: 1px solid #B0C4DE;
   border-bottom: none;
   border-radius: 10px 10px 0px 0px;
   padding: 20px;
+
 }
-form, .content {
+.headerhome
+{
+width: 30%; /* In far left corner */
+margin: 50px 30px auto 0px;   /*shifted right and down */
+color: white; /* change color for the text */
+background: #5F9EA0; /*cut off*/
+text-align: center;
+border: 1px solid #B0C4DE;
+border-bottom: noqne;
+border-radius: 10px 10px 0px 0px;
+padding: 20px;
+}
+form, .content
+{
   width: 30%;
   margin: 0px auto;
   padding: 20px;
@@ -50,19 +64,31 @@ form, .content {
   border: none;
   border-radius: 5px;
 }
+.mainpage
+{
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  background: #5F9EA0;
+  border: none;
+  border-radius: 5px;
+}
 .error {
-  width: 92%; 
-  margin: 0px auto; 
-  padding: 10px; 
-  border: 1px solid #a94442; 
-  color: #a94442; 
-  background: #f2dede; 
-  border-radius: 5px; 
+  width: 92%;
+  margin: 0px auto;
+  padding: 10px;
+  border: 1px solid #a94442;
+  color: #a94442;
+  background: #f2dede;
+  border-radius: 5px;
   text-align: left;
 }
 .success {
-  color: #3c763d; 
-  background: #dff0d8; 
+  color: #3c763d;
+  background: #dff0d8;
   border: 1px solid #3c763d;
   margin-bottom: 20px;
+}
+.aligncenter {
+    text-align: center;
 }
