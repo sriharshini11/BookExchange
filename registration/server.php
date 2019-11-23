@@ -7,7 +7,7 @@ $email    = "";
 $errors = array();
 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', 'root', 'Bookfinder');
+$db = mysqli_connect('localhost', 'root', '', 'Bookfinder');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
@@ -106,29 +106,3 @@ if (isset($_POST['ISBNsearch']))
   }
 }
 ?>
-
-$ISBNsearch=mysqli_real_escape_string($db, $_POST['ISBNsearch']);
-if (empty($ISBNsearch))
-{
-  array_push($errors, "ISBN is required");
-}
-else
-{
-    echo "ISBN field";
-}
-$query="select * from inventory where ISBN='".$ISBNsearch."' Limit 1";
-$result=mysqli_query($db, $query);
-if(mysqli_num_rows($results)==1)
-{
-  while ($row = $result->fetch_assoc())
-  {
-    print_r($row);
-    exit();
-  }
-}
-else
-{
-  echo " No book found";
-    exit();
-}
-}

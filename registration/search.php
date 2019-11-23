@@ -13,15 +13,11 @@
   <input type="text" name="ISBN">
   <input type="submit" class="search" name="ISBNsearch" value="Search">
 </form>
-
-  <!-- <p class="aligncenter">
-      <img src="c++.jpg" alt="centered image" />
-  </p> -->
 <?php
 
 if(isset($_POST['ISBNsearch']))
 {
-  $con = mysqli_connect("localhost", "root", "root", "BookFinder");
+  $con = mysqli_connect("localhost", "root", "", "BookFinder");
   if ($con)
   {
     $ISBN=$_POST['ISBN'];
@@ -31,7 +27,8 @@ if(isset($_POST['ISBNsearch']))
     {
       while ($row = $result->fetch_assoc())
       {
-        echo "<tr><td>" . $row['ISBN'] . $row['image'] . "</td></tr>"; //print row with image
+        echo "<tr><td>" . $row['ISBN'] . "</td></tr>"; //print row with image
+
         exit();
       }
     }
