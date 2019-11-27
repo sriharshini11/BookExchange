@@ -7,6 +7,21 @@
   <link rel="stylesheet" type="text/css" href="searchstyle.css">
 </head>
 <body>
+
+
+  <div class="headerhome">
+  	<h2>Home Page</h2>
+  </div>
+
+  <div class="content">
+        <button type="submit" class = "mainpage" onclick="location='home.php'" name="home">Home</button>
+        <br> </br>
+        <button type="submit" class = "mainpage" onclick="location='profile.php'" name="profile">Profile</button>
+        <br> </br>
+        <button type="submit" class = "mainpage" onclick="location='search.php'" name="search">Search</button>
+  </div>
+
+
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <?php include('errors.php'); ?>
   <label>ISBN</label>
@@ -17,7 +32,9 @@
 
 if(isset($_POST['ISBNsearch']))
 {
-  $con = mysqli_connect("localhost", "root", "", "BookFinder");
+  $like = $_POST['ISBNsearch'];
+  $con = mysqli_connect("localhost", "root", "root", "BookFinder");
+  $results = mysqli_query($con, "SELECT * FROM images WHERE image LIKE '9780134443829%'");
   if ($con)
   {
     $ISBN=$_POST['ISBN'];
@@ -28,6 +45,11 @@ if(isset($_POST['ISBNsearch']))
       while ($row = $result->fetch_assoc())
       {
         echo "<tr><td>" . $row['ISBN'] . "</td></tr>"; //print row with image
+          while ($row2 = mysqli_fetch_array($results))
+          {
+            echo "<img src='images/".$row2['image']."' >";
+            echo "<p>".$row2['image_text']."</p>";
+          }
 
         exit();
       }
@@ -39,6 +61,7 @@ if(isset($_POST['ISBNsearch']))
     }
   }
 }
+
 ?>
 </body>
 </html>

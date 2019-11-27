@@ -7,7 +7,7 @@ $email    = "";
 $errors = array();
 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'Bookfinder');
+$db = mysqli_connect('localhost', 'root', 'root', 'Bookfinder');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
