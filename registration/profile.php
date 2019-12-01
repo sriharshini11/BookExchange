@@ -1,6 +1,6 @@
 <?php
   include_once("header.html");
-  // include('server.php');
+  include('server.php');
   // session_start();
   // if (isset($_GET['logout'])) {
   // 	session_destroy();
@@ -16,15 +16,16 @@
 </head>
 <body>
   <?php
+  $user = $_SESSION['username'];
   $db = mysqli_connect('localhost', 'root', 'root', 'Bookfinder');
-  $query = "SELECT * FROM books";
+  $query = "SELECT * FROM books WHERE poster = '$user'";
   $result = mysqli_query($db, $query);
-  if (mysqli_num_rows($results) < 1) {
-    echo "found";
+  if (mysqli_num_rows($result) < 1) {
+    echo "No book posted";
   }
   else {
-    echo "no results";
-  }
+  //   echo "no results";
+  // }
    // $result = mysqli_query($db, "SELECT * FROM images");
     while ($row = $result->fetch_assoc())
     // while($row = mysqli_fetch_array($result)
@@ -32,7 +33,14 @@
       // echo $row['ISBN'];
       echo "<tr>";
       echo "<td>";?> <img src="images/<?php echo $row['picture']; ?>" height="100" width="100"> <?php echo "</td>";
+      ?>
+      <div class="input-group">
+    		<button type="submit" class="btn" name="login_user">Mark as Sold</button>
+    	</div>
 
+
+      <?php
+      echo "<br>";
       // " . "<img src='images/".$row['picture']."' >" . "</td></tr>";
       //       	// echo "<p>".$row['image_text']."</p>";
           }
@@ -56,7 +64,8 @@
     //
     // }
           // exit();
+        }
           ?>
-<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
+<p> <a href="login.php?logout='1'" style="color: red;">logout</a> </p>
 </body>
 </html>

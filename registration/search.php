@@ -21,35 +21,26 @@
 if(isset($_POST['ISBN']))
 {
 
-  $like = $_POST['ISBN'];
-  if (empty($like)) { echo "Is empty"; }
+  $ISBN = $_POST['ISBN'];
+  if (empty($ISBN)) { echo "Is empty"; }
   else{
   $con = mysqli_connect("localhost", "root", "root", "BookFinder");
-  $results = mysqli_query($con, "SELECT * FROM images WHERE image LIKE '9780134443829%'");
+  $results = mysqli_query($con, "SELECT * FROM books WHERE ISBN = '$ISBN'");
   if ($con)
   {
     $ISBN=$_POST['ISBN'];
-    $sql="select * from inventory where ISBN='".$ISBN."' Limit 1";
-    $result=mysqli_query($con, $sql);
-    if(mysqli_num_rows($result)==1)
-    {
-      while ($row = $result->fetch_assoc())
+
+    // $result=mysqli_query($con, $sql);
+      while ($row = $results->fetch_assoc())
       {
         echo "<tr><td>" . $row['ISBN'] . "</td></tr>"; //print row with image
-          while ($row2 = mysqli_fetch_array($results))
-          {
-            echo "<img src='images/".$row2['image']."' >";
-            echo "<p>".$row2['image_text']."</p>";
-          }
+          echo "<tr>";
+          echo "<td>";?> <img src="images/<?php echo $row['picture']; ?>" height="100" width="100"> <?php echo "</td>";
+          echo "<br>";
 
-        exit();
+
       }
-    }
-    else
-    {
-      echo " No book found ";
-        exit();
-    }
+            exit();
   }
 }
 }
