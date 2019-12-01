@@ -1,0 +1,4 @@
+if (empty($ISBN)) { array_push($errors, "ISBN is required"); }
+if (empty($title)) { array_push($errors, "Title is required"); }
+if (empty($price)) { array_push($errors, "Price estimate is required. Please specify in description"); }
+if (empty($course)) { array_push($errors, "Course Code is required"); }

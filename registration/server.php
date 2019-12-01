@@ -51,7 +51,7 @@ if (isset($_POST['reg_user'])) {
   	mysqli_query($db, $query);
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You are now logged in";
-  	header('location: home.php');
+  	header('location: profile.php');
   }
 }
 
@@ -76,7 +76,7 @@ if (isset($_POST['login_user'])) {
   	$results = mysqli_query($db, $query);
   	if (mysqli_num_rows($results) == 1) {
   	  $_SESSION['username'] = $username;
-  	  header('location: home.php');
+  	  header('location: profile.php');
   	}else {
   		array_push($errors, "Wrong username/password combination");
   	}
@@ -105,4 +105,53 @@ if (isset($_POST['ISBNsearch']))
       exit();
   }
 }
+if (isset($_POST['Post'])) {
+  // receive all input values from the form
+  $ISBN = mysqli_real_escape_string($db, $_POST['ISBN']);
+  $title = mysqli_real_escape_string($db, $_POST['Title']);
+  $price = mysqli_real_escape_string($db, $_POST['Price']);
+  $course = mysqli_real_escape_string($db, $_POST['CourseCode']);
+  $description = mysqli_real_escape_string($db, $_POST['Description']);
+  $contact = mysqli_real_escape_string($db, $_POST['Contact']);
+  $picture = mysqli_real_escape_string($db, $_POST['image']);
+  $image = $_FILES['image']['name'];
+  $target = "images/".basename($image);
+
+  // if (empty($ISBN)) { array_push($errors, "ISBN is required"); }
+  // if (empty($title)) { array_push($errors, "Title is required"); }
+  // if (empty($price)) { array_push($errors, "Price estimate is required. Please specify in description"); }
+  // if (empty($course)) { array_push($errors, "Course Code is required"); }
+
+  // $queries = "INSERT INTO books(ISBN, title, price, courseCode, description, contact) Values(
+  //   $ISBN, $title, $price, $course, $description, $contact)";
+  move_uploaded_file($_FILES['image']['tmp_name'], $target);
+  $queries = "INSERT INTO books(ISBN, title, price, courseCode, description, contact, picture) Values(
+    '$ISBN', '$title', '$price', '$course', '$description', '$contact', '$picture')";
+  if(mysqli_query($db, $queries))
+  {
+    echo "new record";
+  }
+  }
+
+
+  // $result = mysqli_query($db, $query);
+  // $sell = mysqli_fetch_assoc($result);
+
+  // Get image name
+  $image = $_FILES['image']['name'];
+  // Get text
+  $image_text = mysqli_real_escape_string($db, $_POST['image_text']);
+
+  // image file directory
+  $target = "images/".basename($image);
+
+  $sql = "INSERT INTO images (image, image_text) VALUES ('$image', '$image_text')";
+  // execute query
+  mysqli_query($db, $sql);
+
+  if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+    $msg = "Image uploaded successfully";
+  }else{
+    $msg = "Failed to upload image";
+  }
 ?>

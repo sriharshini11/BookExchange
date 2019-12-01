@@ -1,3 +1,13 @@
+<?php
+  include_once("header.html");
+  // include('server.php');
+  // session_start();
+  // if (isset($_GET['logout'])) {
+  // 	session_destroy();
+  // 	unset($_SESSION['username']);
+  // 	header("location: login.php");
+  // }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,20 +15,48 @@
 	<link rel="stylesheet" type="text/css" href="homestyle.css">
 </head>
 <body>
+  <?php
+  $db = mysqli_connect('localhost', 'root', 'root', 'Bookfinder');
+  $query = "SELECT * FROM books";
+  $result = mysqli_query($db, $query);
+  if (mysqli_num_rows($results) < 1) {
+    echo "found";
+  }
+  else {
+    echo "no results";
+  }
+   // $result = mysqli_query($db, "SELECT * FROM images");
+    while ($row = $result->fetch_assoc())
+    // while($row = mysqli_fetch_array($result)
+    {
+      // echo $row['ISBN'];
+      echo "<tr>";
+      echo "<td>";?> <img src="images/<?php echo $row['picture']; ?>" height="100" width="100"> <?php echo "</td>";
 
-  <div class="headerhome">
-  	<h2>Profile</h2>
-  </div>
-  <div class="content">
-        <button type="submit" class = "mainpage" onclick="location='home.php'" name="home">Home</button>
-        <br> </br>
-        <button type="submit" class = "mainpage" onclick="location='profile.php'" name="profile">Profile</button>
-        <br> </br>
-        <button type="submit" class = "mainpage" onclick="location='search.php'" name="search">Search</button>
-
-      <!-- logged in user information -->
-        <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
-  </div>
-
+      // " . "<img src='images/".$row['picture']."' >" . "</td></tr>";
+      //       	// echo "<p>".$row['image_text']."</p>";
+          }
+      // echo print_r($row);
+      // echo "<br>";
+      // echo 'img src="data:image/jpeg;base64,'.base64_encode( $result['picture']).'"/>';
+      // while ($row2 = mysqli_fetch_array($results))
+      // {
+      //   echo "<img src='images/png".$row['picture']."' >";
+      //   echo "<p>".$row['image_text']."</p>";
+      // }
+      // echo "<br>";
+      // echo "<br>";
+      // echo "<tr><td>" . $row['ISBN'] . "</td></tr>"; //print row with image
+      // echo "<br>";
+        // while ($row2 = mysqli_fetch_array($results))
+        // {
+        //   echo "<img src='images/".$row2['image']."' >";
+        //   echo "<p>".$row2['image_text']."</p>";
+        // }
+    //
+    // }
+          // exit();
+          ?>
+<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
 </body>
 </html>

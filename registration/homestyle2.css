@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #242524
+}
+
+li, a, button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #edf0f1;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.nav__links {
+  list-style: none;
+}
+
+.nav__links li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav__links li a {
+  transition: all 0.3s ease 0s
+}
+
+.nav__links li a:hover {
+  color: #0088a9
+}
+
+button {
+  padding: 9px 25px;
+  background-color: rgba(0,136,169,1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s case 0s;
+}
+
+button:hover {
+  background-color: rgba(0,136,169,0);
+}
+
+.search
+{
+  width: 40%; /* In far left corner */
+  margin: 50px auto 0px;   /*shifted right and down */
+  color: Yellow; /* change color for the text */
+  background: #5F9EA0; /*cut off*/
+  text-align: center;
+  border: 1px solid #B0C4DE;
+  border-bottom: 1px;
+  border-radius: 10px 10px 10px 10px;
+  padding: 20px;
+}
+.search label {
+  display: block;
+  text-align: center;
+  margin: 3px;
+}
+.search input {
+  height: 30px;
+  width: 93%;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}

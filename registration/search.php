@@ -1,38 +1,29 @@
-
+<?php include_once("header.html"); ?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <title>Registration system PHP and MySQL</title>
-  <link rel="stylesheet" type="text/css" href="searchstyle.css">
+  <link rel="stylesheet" type="text/css" href="homestyle2.css">
 </head>
 <body>
 
 
-  <div class="headerhome">
-  	<h2>Home Page</h2>
-  </div>
-
-  <div class="content">
-        <button type="submit" class = "mainpage" onclick="location='home.php'" name="home">Home</button>
-        <br> </br>
-        <button type="submit" class = "mainpage" onclick="location='profile.php'" name="profile">Profile</button>
-        <br> </br>
-        <button type="submit" class = "mainpage" onclick="location='search.php'" name="search">Search</button>
-  </div>
-
-
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <?php include('errors.php'); ?>
-  <label>ISBN</label>
-  <input type="text" name="ISBN">
+  <input type="text" class="search" name="ISBN" placeholder="ISBN"><br>
   <input type="submit" class="search" name="ISBNsearch" value="Search">
 </form>
-<?php
 
-if(isset($_POST['ISBNsearch']))
+
+
+<?php
+if(isset($_POST['ISBN']))
 {
-  $like = $_POST['ISBNsearch'];
+
+  $like = $_POST['ISBN'];
+  if (empty($like)) { echo "Is empty"; }
+  else{
   $con = mysqli_connect("localhost", "root", "root", "BookFinder");
   $results = mysqli_query($con, "SELECT * FROM images WHERE image LIKE '9780134443829%'");
   if ($con)
@@ -60,6 +51,7 @@ if(isset($_POST['ISBNsearch']))
         exit();
     }
   }
+}
 }
 
 ?>
