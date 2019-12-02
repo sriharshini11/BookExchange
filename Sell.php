@@ -59,7 +59,7 @@ else {
       <?php  if (isset($_SESSION['username'])) : ?>
         <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
       <?php endif ?>
-
+<!-- Work on multi-image -->
       <form method="post" action="" enctype="multipart/form-data" <?php echo $_SERVER['PHP_SELF']; ?>>
         <?php include('errors.php'); ?>
         <input type="text" class="search" name="ISBN" placeholder="ISBN"><br>
