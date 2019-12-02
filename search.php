@@ -41,7 +41,6 @@ if(isset($_POST['ISBN']))
   $ISBN = $_POST['ISBN'];
   $con = mysqli_connect("localhost", "root", "root", "BookFinder");
   $results = mysqli_query($con, "SELECT * FROM books WHERE ISBN = '$ISBN'");
-  $ISBN=$_POST['ISBN'];
   while ($row = $results->fetch_assoc())
   {
     echo "<tr><td>" . $row['ISBN'] . "</td></tr>"; //print row with image
@@ -61,7 +60,6 @@ if(isset($_POST['Title']))
                           title like '%$title' OR
                           title like '%$title%' OR
                           title = '$title'");
-  $ISBN=$_POST['ISBN'];
   while ($row = $results->fetch_assoc())
   {
     echo "<tr><td>" . $row['ISBN'] . "</td></tr>"; //print row with image
