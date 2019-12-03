@@ -1,10 +1,12 @@
 <?php
   include_once("header.html");
   include('server.php');
+  include('errors.php');
   // session_start();
 ?>
 <?php
 if (isset($_POST['Post'])){
+  //TODO: add error message if something is not set. If picture not set, verify with customer?
 $ISBN = mysqli_real_escape_string($db, $_POST['ISBN']);
 $title = mysqli_real_escape_string($db, $_POST['Title']);
 $price = mysqli_real_escape_string($db, $_POST['Price']);
@@ -15,17 +17,23 @@ $user = $_SESSION['username'];
 $db = mysqli_connect("localhost", "root", "root", "bookfinder");
 // Get image name
 $image = $_FILES['image']['name'];
-// Get text
-// $image_text = mysqli_real_escape_string($db, $_POST['image_text']);
-
+if(file_exists($image))
+{
+  $target = "images/".basename($image);
+  if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+    $msg = "Image uploaded successfully";
+  }else{
+    $msg = "Failed to upload image";
+  }
+}
+else {
+  $image = 'NULL';
+}
 // image file directory
-$target = "images/".basename($image);
-// $query = "INSERT INTO books(ISBN, title, price, courseCode, description, contact) Values(
-//   '$ISBN', '$title', '$price', '$course', '$description', '$contact')";
-// // $sql = "INSERT INTO books(picture) VALUES ('$image')";
-// // execute query
+
 $query = "INSERT INTO books(ISBN, title, price, courseCode, description, contact, picture, poster) Values(
   '$ISBN', '$title', '$price', '$course', '$description', '$contact', '$image', '$user')";
+  //TODO: print success message if inserted correctly
 if(mysqli_query($db, $query))
 {
   echo "recprd";
@@ -34,18 +42,7 @@ else {
   echo "try again";
 }
 
-if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-  $msg = "Image uploaded successfully";
-}else{
-  $msg = "Failed to upload image";
-}
-// if (isset($_SESSION['username']))
-// {
-//   echo $_SESSION['username'];
-// }
-// else {
-//   echo "no username stored";
-// }
+
 }
  ?>
 
@@ -62,7 +59,7 @@ if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
       <?php  if (isset($_SESSION['username'])) : ?>
         <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
       <?php endif ?>
-
+<!-- Work on multi-image -->
       <form method="post" action="" enctype="multipart/form-data" <?php echo $_SERVER['PHP_SELF']; ?>>
         <?php include('errors.php'); ?>
         <input type="text" class="search" name="ISBN" placeholder="ISBN"><br>
